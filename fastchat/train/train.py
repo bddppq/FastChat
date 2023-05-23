@@ -35,6 +35,7 @@ IGNORE_TOKEN_ID = LabelSmoother.ignore_index
 @dataclass
 class ModelArguments:
     model_name_or_path: Optional[str] = field(default="facebook/opt-125m")
+    use_fast_tokenizer: bool = field(default=True)
 
 
 @dataclass
@@ -248,7 +249,7 @@ def train():
         cache_dir=training_args.cache_dir,
         model_max_length=training_args.model_max_length,
         padding_side="right",
-        use_fast=False,
+        use_fast=model_args.use_fast_tokenizer,
     )
     tokenizer.pad_token = tokenizer.unk_token
 
